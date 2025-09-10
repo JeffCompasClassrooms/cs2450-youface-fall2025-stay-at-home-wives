@@ -14,4 +14,26 @@ This app will be available via web browsers and viewable from desktop only and i
 
 The scope of the app is aimed at a pirate-wizard demographic only and will not expand to accommodate other demographics.
 
+# Assumptions 
+
+Each person who uses the app has access to a desktop computer and is okay with only using it when they have access.
+
+Users will be distinguishable via their unique username and password.
+
+# Features
+
+The user will be able to build their own profile with pictures, descriptions, and general answers to text prompts.
+
+The user will be able to view the profiles of other algorithmically selected users.
+
+Algorithm could be anything from (select next user from list) to (use applicable data to select a most relevant user)
+
+The user will be able to "like" other users' profiles.
+
+Users who mutually "like" one another will be provided an opportunity to chat.
+
+Users can upgrade their experience through a purchase, providing premium features
+
+Premium features:
+    - TBD
 
