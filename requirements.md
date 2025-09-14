@@ -37,3 +37,4 @@ Users can upgrade their experience through a purchase, providing premium feature
 Premium features:
     - TBD
 
+It's git mergin time (dylan clarke)
