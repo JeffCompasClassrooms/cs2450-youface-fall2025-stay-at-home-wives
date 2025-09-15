@@ -59,7 +59,3 @@ The system will need to be available 24x7x365 with no downtime.
 The app will be viewable with the same experience on all desktop browsers.
 
 The app will serve up to 300,000 wizards and up to 300,000 pirates total
-
-=====
-This is a change
-=====
