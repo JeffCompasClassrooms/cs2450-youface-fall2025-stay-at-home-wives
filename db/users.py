@@ -3,7 +3,7 @@ import tinydb
 statusMessages = {
         "invalidCredential": "invalidCredential",
         "usernameTaken": "usernameTaken",
-        "success": "success"
+        "success": "success",
         }
 
 def checkUsername(username):
@@ -24,7 +24,7 @@ def checkPassword(password):
     if len(password) > 20:
         return False
     letterCount = 0
-    for char in username:
+    for char in password:
         if (char.isalpha()):
             letterCount += 1
             break
@@ -63,8 +63,10 @@ def get_user_by_name(db, username):
 def delete_user(db, username, password):
     users = db.table('users')
     User = tinydb.Query()
-    return users.remove((User.username == username) &
-            (User.password == password))
+    removed = users.remove((User.username == username) & (User.password == password))
+    if removed:
+        return statusMessages['success']
+    return statusMessages['invalidCredential']
 
 def add_user_friend(db, user, friend):
     users = db.table('users')
