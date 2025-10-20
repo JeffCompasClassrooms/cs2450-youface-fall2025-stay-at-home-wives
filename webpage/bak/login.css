@@ -125,13 +125,6 @@ main {
   border-width:0.5px;
 }
 
-#login fieldset{
-  display:flex;
-  flex-flow:column nowrap;
-  gap:1rem;
-  border:none;
-  padding:10rem;
-}
 
 
 

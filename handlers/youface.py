@@ -10,7 +10,7 @@ app = flask.Flask(
     __name__,
     template_folder='webpage',     # <-- serve templates from webpage/
     static_folder='webpage',       # <-- serve static from webpage/
-    static_url_path=''             # <-- blank so /css/style.css keeps working
+    static_url_path=''             # <-- so /css/style.css keeps working
 )
 
 @app.template_filter('convert_time')

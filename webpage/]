@@ -14,7 +14,6 @@
     <div id="wrapper">
         <div id="hero"><img src="css/assets/hero.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
         <div id="top"></div>
-
         <!-- LOGIN -->
         <div id="login">
           {% if logged_in %}
@@ -43,7 +42,14 @@
         <!--FORUMS-->
         <div class="topics">
 
-
+          <header class="topics-head">
+            <h2></h2>
+            {% if logged_in %}
+              <a class="btn small" href="{{ url_for('posts.new_post_form') }}">New Post</a>
+            {% else %}
+              <a class="btn small" href="{{ url_for('login.loginscreen') }}">Login to post</a>
+            {% endif %}
+          </header>
 
           <!-- Column headers -->
           <div class="topic-row topic-head">
@@ -80,19 +86,6 @@
           </article>
           {% endfor %}
 
-          <!-- Pager 
-          <nav class="pager">
-            <a class="btn small" href="#">← Newer</a>
-            <a class="btn small" href="#">Older →</a>
-          </nav>-->
-          <header class="topics-head">
-            <h2></h2>
-            {% if logged_in %}
-              <a class="btn small" href="{{ url_for('posts.new_post_form') }}">New Post</a>
-            {% else %}
-              <a class="btn small" href="{{ url_for('login.loginscreen') }}">Login to post</a>
-            {% endif %}
-          </header>
         </div>
       </section>
       <!--END FORUMS-->
