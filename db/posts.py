@@ -11,7 +11,6 @@ def get_posts(db, user):
     return posts.search(Post.user==user['username'])
 
 def ensure_shape(p):
-    # make sure optional fields exist
     if 'comments' not in p:
         p['comments'] = []
     if 'views' not in p:

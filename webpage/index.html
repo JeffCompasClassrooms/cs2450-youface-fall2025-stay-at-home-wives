@@ -43,17 +43,16 @@
         <!--FORUMS-->
         <div class="topics">
 
-
-
-          <!-- Column headers -->
+          <!--COLUMN HEADERS-->
           <div class="topic-row topic-head">
             <div class="c-topic">Topic</div>
             <div class="c-replies">Replies</div>
             <div class="c-views">Views</div>
             <div class="c-last">Last post</div>
           </div>
+          <!--END COLUMN HEADERS-->
 
-          <!-- Posts row -->
+          <!-- POSTS -->
           {% for p in posts %}
           <article class="topic-row">
             <div class="c-topic">
@@ -79,6 +78,7 @@
                {% endif %} </div>
           </article>
           {% endfor %}
+          <!-- END POSTS -->
 
           <!-- Pager 
           <nav class="pager">

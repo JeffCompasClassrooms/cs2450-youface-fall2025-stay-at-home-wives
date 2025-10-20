@@ -38,7 +38,6 @@ def view_post(post_id):
         return ("Post not found", 404)
 
     posts_db.increment_views(db, post_id)
-    # render the template you actually created: posts.html (not post.html)
     return flask.render_template('posts.html', post=p, username=username, user=user)
 
 @blueprint.post('/posts/<int:post_id>/comment')
@@ -76,6 +75,7 @@ def new_post_form():
     return flask.render_template('new_post.html', logged_in=True, user=user, username=username)
 
 @blueprint.post('/posts/<int:post_id>/delete')
+
 def delete_post(post_id):
     """Delete a post (only by its author)."""
     db = helpers_db.load_db()
