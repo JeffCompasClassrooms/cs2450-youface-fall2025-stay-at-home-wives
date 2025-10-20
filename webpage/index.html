@@ -7,23 +7,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="style.css" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro" />
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
   </head>
   <body>
+    <div id="overlay">
     <div id="wrapper">
-      <header>Plundr</header>
+        <div id="top-hero"><img src="assets/hero.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
+        <div id="top"></div>
         <nav>
         <ul>
-          <li><p>Home</p></li>
-          <li><p>Feed</p></li>
-          <li><p>Recommended</p></li>
-          <li><p>Tavern</p></li>
-          <li><p>Crews</p></li>
+          <li><a href="index.html" class="icon navigate">Home</a></li>
+          <li><a href="recommended.html" class="icon navigate">Recommended</a></li>
+          <li><a href="tavern.html" class="icon navigate">Tavern</a></li>
+          <li><a href="crews.html" class="icon navigate">Crews</a></li>
+          <li><a href="decks.html" class="icon navigate">Decks</a></li>
         </ul>
+        <div class="divider"></div>
         <footer>Copyright &copy; 2025 stay@homewives</footer>
         </nav>
-    </div>
-    <main>
-        <div id="Slogan"><h1>Share Treasure<br>Find Crew<br>Chart Connections</h1></div>
+        <div id="crew"></div>
+    <main class="content">
+     <!---hero--->
+      <section class="hero">
+        <h1 class="slogan">
+          <span>Tell Tales</span>
+          <span>Find Crews</span>
+          <span>Chart Connections</span>
+        </h1>
+      </section>
+
     </main>
+    </div>
+    </div>
+
+  <script src="scripts/terminal.js"></script>
   </body>
 </html>
