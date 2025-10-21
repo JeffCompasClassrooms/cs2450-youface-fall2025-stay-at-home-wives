@@ -20,14 +20,13 @@
           <div class="divider"></div>
           <footer>Copyright &copy; 2025 stay@homewives</footer>
         </nav>
-
         <main class="content" style="padding:18px; text-align:left; max-width:900px;">
           <article class="widget">
             <h2 style="margin-top:0;">{{ post.title or 'Untitled' }}</h2>
             <div class="topic-meta" style="margin-bottom:8px;">
               by <strong>{{ post.user }}</strong>
-              • <time>{{ post.time|convert_time }}</time>
-              • {{ post.views }} views
+              <time>{{ post.time|convert_time }}</time>
+              {{ post.views }} views
             </div>
             {% if user and user.username == post.user %}
             <form method="post"
@@ -37,13 +36,10 @@
               <button class="btn small" type="submit">Delete post</button>
             </form>
           {% endif %}
-
           <div style="white-space:pre-wrap;">{{ post.text }}</div>
         </article>
-
           <section style="margin-top:16px;">
             <h3>Comments ({{ post.comments|length }})</h3>
-
             {% if post.comments %}
               <div style="display:flex; flex-direction:column; gap:12px;">
                   {% for c in post.comments %}
@@ -63,7 +59,6 @@
       </form>
     {% endif %}
   </div>
-
   <div style="margin-top:6px; white-space:pre-wrap;">{{ c.body }}</div>
 </div>
 {% endfor %}
@@ -71,7 +66,6 @@
             {% else %}
               <p>No comments yet.</p>
             {% endif %}
-
             <form method="post" action="{{ url_for('posts.add_comment', post_id=post.doc_id) }}" style="margin-top:12px; display:flex; flex-direction:column; gap:10px;">
               <label>Add a comment
                 <textarea name="body" rows="4" required style="width:100%; padding:8px;"></textarea>
@@ -84,4 +78,3 @@
     </div>
   </body>
 </html>
-
