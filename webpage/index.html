@@ -9,12 +9,16 @@
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro" />
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
   </head>
-  <body class="with-crew">
+  <body>
     <div id="overlay">
     <div id="wrapper">
-        <div id="hero"><img src="css/assets/hero.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
+        <div id="hero"><img src="css/assets/hero2.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
         <div id="top"></div>
 
+        
+        <!--NAV-->
+        <nav>
+        <div class="divider"></div>
         <!-- LOGIN -->
         <div id="login">
           {% if logged_in %}
@@ -25,14 +29,31 @@
             <a class="btn small" href="{{ url_for('login.loginscreen') }}">Login</a>
           {% endif %}
         </div>
+        <div class="divider1"></div>
         <!-- END LOGIN -->
-        
-        <!--NAV-->
-        <nav>
         <ul>
           <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Seven-Seas</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Search?</a></li>
         </ul>
-        <div class="divider"></div>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">General</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Deck Pics</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Booty Pics</a></li>
+        </ul>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Crews</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">List Crews:</a></li>
+        </ul>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Posts</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Comments</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Bookmarks</a></li>
+        </ul>
+        <div class="divider2"></div>
         <footer>Copyright &copy; 2025 stay@homewives</footer>
         </nav>
         <!--END NAV-->
@@ -80,11 +101,6 @@
           {% endfor %}
           <!-- END POSTS -->
 
-          <!-- Pager 
-          <nav class="pager">
-            <a class="btn small" href="#">← Newer</a>
-            <a class="btn small" href="#">Older →</a>
-          </nav>-->
           <header class="topics-head">
             <h2></h2>
             {% if logged_in %}
