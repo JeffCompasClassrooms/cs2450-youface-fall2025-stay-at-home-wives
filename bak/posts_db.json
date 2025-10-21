@@ -1,0 +1,12 @@
+Post = {
+  "id": int,
+  "title": str,
+  "author": str,
+  "body": str,
+  "created_at": unix_ts,
+  "views": int,
+  "comments": [
+      {"author": str, "body": str, "created_at": unix_ts}, ...
+  ]
+}
+
