@@ -1,0 +1,65 @@
+:root{
+  --nav-w: 220px;
+  --top-h: 84px;
+  --ink: #12110f;
+  --parchment: #efe1c6;
+  --gold: #caa75b;
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0; color:var(--ink);
+  font-family: Inter, system-ui, Segoe UI, Roboto, Arial, sans-serif;
+  background: var(--parchment) url("/static/assets/parchment.jpg") center/cover no-repeat fixed;
+}
+
+/* page grid */
+.page{
+  min-height:100dvh;
+  display:grid;
+  grid-template-columns: var(--nav-w) 1fr;
+  grid-template-rows: var(--top-h) 1fr;
+  grid-template-areas:
+    "nav top"
+    "nav main";
+}
+
+/* left nav */
+.nav{
+  grid-area:nav; display:flex; flex-direction:column;
+  gap:12px; padding:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.44));
+  border-right:1px solid rgba(0,0,0,.12);
+}
+.nav-list{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:8px; }
+.nav-list a{ display:block; padding:10px 12px; border-radius:10px; text-decoration:none; color:var(--ink); font-weight:600;}
+.nav-list a:hover{ background:rgba(0,0,0,.06); }
+.nav-list a.is-active{ background:rgba(202,167,91,.18); outline:1px solid rgba(202,167,91,.45); }
+.site-foot{ margin-top:auto; font-size:12px; opacity:.75; }
+
+/* top bar */
+.topbar{
+  grid-area:top; display:flex; align-items:center; justify-content:space-between;
+  padding:0 20px; border-bottom:1px solid rgba(0,0,0,.12);
+  background: linear-gradient(180deg, rgba(255,255,255,.62), rgba(255,255,255,.44));
+}
+.brand{ display:flex; align-items:center; gap:10px; }
+.logo{ width:42px; height:42px; object-fit:contain; }
+.wordmark{ font-family:"Bona Nova SC", serif; font-weight:700; letter-spacing:.08em; font-size:38px; }
+
+/* profile/login button */
+.btn.profile{
+  display:inline-flex; align-items:center; padding:10px 16px; border-radius:8px;
+  background: linear-gradient(#f6f0e3,#e8d6b4);
+  border:1px solid rgba(0,0,0,.22); color:var(--ink); font-weight:700; text-decoration:none;
+}
+
+/* content + hero */
+.content{ grid-area:main; padding: 20px clamp(16px,3vw,48px); max-width:1100px; margin:0 auto; }
+.hero{ min-height:22vh; display:grid; place-items:center; text-align:center; }
+.slogan{ margin:0; font-family:"Bona Nova SC", serif; font-weight:700; text-transform:uppercase; line-height:1.06; font-size:clamp(28px,4.2vw,56px); }
+.divider{ height:1px; background:linear-gradient(90deg,transparent,rgba(0,0,0,.25),transparent); margin:12px 0 18px; }
+
+/* (keep your forum-index + widget CSS from earlier) */
+

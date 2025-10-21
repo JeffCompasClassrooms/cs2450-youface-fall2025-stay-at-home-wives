@@ -1,14 +1,14 @@
+# Project: Pirate Wizard Codegrindr
+
 # Business Context
 
 Dating apps are used to bring people with similar interests together and set them up on dates. There are many unexplored niches in the matchmaking industry.
 
 # Problem Statement
 
-Pirates have few opportunities to meet and match up on the open seas.
+Pirate-Wizard segregation is a societal seed for discrimination and oppression. Through social engineering, we will reduce this divide and promote equality across the seven seas and realms.
 
 # Scope
-
-Using an advanced network of messages in bottles and note-carrying parrots, we will connect pirates to share their plunder.
 
 This app will be available via web browsers and viewable from desktop only and if you view it on a phone it blows up the phone.
 
@@ -22,14 +22,6 @@ Users will be distinguishable via their unique username and password.
 
 # Features
 
-A user without an account will be unable to use the app without one, and will be prompted to do so.
-
-The user will be able to log in using their username and password.
-
-The app will grant the user a session which will remain valid for a length of time and allow the user to avoid re-logging
-
-The user must verify legal age through a curse
-
 The user will be able to build their own profile with pictures, descriptions, and general answers to text prompts.
 
 The user will be able to view the profiles of other algorithmically selected users.
@@ -42,15 +34,6 @@ Users who mutually "like" one another will be provided an opportunity to chat.
 
 Users can upgrade their experience through a purchase, providing premium features
 
-Users may randomly discover curses that will modify their profile in negative ways
-
 Premium features:
-- Cursing other users for a small fee
+    - TBDDDDDDDD
 
-# Non-Functional Requirements
-
-The system will need to be available 24x7x365 with no downtime. 
-
-The app will be viewable with the same experience on all desktop browsers.
-
-The app will serve up to 300,000 wizards and up to 300,000 pirates total
