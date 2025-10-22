@@ -1,53 +1,16 @@
 import tinydb
 
-statusMessages = {
-        "invalidCredential": "invalidCredential",
-        "usernameTaken": "usernameTaken",
-        "success": "success"
-        }
-
-def checkUsername(username):
-    if len(username) > 20:
-        return False
-    letterCount = 0
-    for char in username:
-        if (char.isalpha()):
-            letterCount += 1
-            break
-    if letterCount < 1:
-        return False
-    return True
-
-def checkPassword(password):
-    if len(password) < 8:
-        return False
-    if len(password) > 20:
-        return False
-    letterCount = 0
-    for char in username:
-        if (char.isalpha()):
-            letterCount += 1
-            break
-    if letterCount < 1:
-        return False
-    return True
-
-
 def new_user(db, username, password):
-    if (not checkUsername(username)):
-        return statusMessages["invalidCredential"]
-    if (not checkPassword(password)):
-        return statusMessages["invalidCredential"]
     users = db.table('users')
     User = tinydb.Query()
     if users.get(User.username == username):
-        return statusMessages["usernameTaken"]
+        return None
     user_record = {
             'username': username,
             'password': password,
             'friends': []
             }
-    return statusMessages["success"]
+    return users.insert(user_record)
 
 def get_user(db, username, password):
     users = db.table('users')
