@@ -14,11 +14,9 @@
     <div id="wrapper">
         <div id="hero"><img src="css/assets/hero2.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
         <div id="top"></div>
-
-        
         <!--NAV-->
         <nav>
-        <div class="divider"></div>
+        <div id="hero2"><img src="css/assets/hero2.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
         <!-- LOGIN -->
         <div id="login">
           {% if logged_in %}
@@ -34,24 +32,16 @@
         <ul>
           <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
           <li><a href="{{ url_for('login.index') }}" class="icon navigate">Seven-Seas</a></li>
-          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Search?</a></li>
         </ul>
         <div class="divider1"></div>
         <ul>
-          <li><a href="{{ url_for('login.index') }}" class="icon navigate">General</a></li>
-          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Deck Pics</a></li>
-          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Booty Pics</a></li>
-        </ul>
-        <div class="divider1"></div>
-        <ul>
-          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Crews</a></li>
+          <li><a href="{{ url_for('login.template_page') }}" class="icon navigate">Template Crews</a></li>
           <li><a href="{{ url_for('login.index') }}" class="icon navigate">List Crews:</a></li>
         </ul>
         <div class="divider1"></div>
         <ul>
           <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Posts</a></li>
           <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Comments</a></li>
-          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Bookmarks</a></li>
         </ul>
         <div class="divider2"></div>
         <footer>Copyright &copy; 2025 stay@homewives</footer>
@@ -117,6 +107,6 @@
     </div>
     </div>
 
-  <script src="scripts/terminal.js"></script>
+  <script src="scripts/changeme.js"></script>
   </body>
 </html>

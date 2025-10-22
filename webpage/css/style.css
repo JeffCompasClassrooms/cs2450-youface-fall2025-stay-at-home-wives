@@ -34,7 +34,7 @@ body{
   display:grid;
   height:100%;
   grid-template-rows:3.3rem repeat(6,1fr);
-  grid-template-columns:217px minmax(0, 1fr) repeat(5,minmax(0px,175px)) minmax(0px,1fr);
+  grid-template-columns:217px minmax(0, 175px) repeat(5,minmax(0px,1fr)) minmax(0px,1fr);
   position:relative;
 }
 /*-----END GRID-----*/
@@ -87,10 +87,12 @@ nav ul li a{
 }
 
 nav footer {
-  font-style:italic;
   margin-top:auto;
   margin-bottom:0.55rem;
-  font-size:0.64rem;
+  font-family:arial;
+  font-weight:400;
+  font-style:italic;
+  font-size:0.7rem;
   text-align:center;
 }
 
@@ -99,27 +101,22 @@ nav footer {
 #top{
   grid-row:1/2;
   grid-column:1/2;
-  border-bottom:solid;
   border-width:0.5px;
   border-color:rgba(255,255,255,.65);
   background-color:rgba(36, 36, 36, 0.83);
 }
 
 #hero{
-  margin-top:0.5rem;
+  margin-top:0.67rem;
   grid-row:1/2;
   grid-column:1/2;
   text-align:center;
   z-index:0;
-  backdrop-filter: blur(6px) saturate(1.05);
 }
-
-aside {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.4),
-    rgba(0, 0, 0, 0.55)
-  );
+#hero2{
+  display:none;
+  text-align:center;
+  margin-right:1rem;
 }
 
 main {
@@ -127,7 +124,6 @@ main {
   grid-row:2/8;
   grid-column:3/8;
   text-align:center;
-  margin-top:2rem;
   z-index: 0;
   border-radius: 18px;
   background: linear-gradient(to bottom,
@@ -148,6 +144,10 @@ main {
   justify-content:center;
   align-items:center;
   text-decoration:none;
+}
+
+#divider3{
+  display:none;
 }
 
 #login fieldset{
@@ -339,6 +339,10 @@ a:hover{ text-decoration:underline; }
 }
 /*----END POSTS---- */
 
+.footer-main footer{
+  display:none;
+}
+
 .flash-wrap{
   margin-bottom:10px;
 }
@@ -366,7 +370,72 @@ a:hover{ text-decoration:underline; }
 
 
 /*-----PEASANT SCREEN FORMATTING -----*/
-@media (max-width: 980px){
+@media screen and (max-width:1400px){
+  #wrapper{
+    grid-template-columns:217px minmax(0, 1fr) repeat(5,minmax(0px,175px)) minmax(0px,1fr);
+  }
+}
+
+@media only screen and (max-width: 992px){
+  nav{
+    position:sticky;
+    top:0;
+    grid-row:1/2;
+    grid-column:1/-1;
+    width:100%;
+    z-index:7;
+    box-shadow:none;
+    align-items:center;
+    justify-content:space-around;
+    flex-direction:row;
+  }
+
+  nav ul{
+    display:flex;
+    flex-direction:row;
+    flex-wrap:wrap;
+    gap:1rem;
+    padding-left:0;
+    padding:0;
+    margin:0;
+    margin-left:1rem;
+    width:auto;
+    list-style-type:none;
+  }
+  nav ul li{
+    padding:0 0;
+  }
+  nav ul li a{
+    display:inline-block;
+    margin-left:0;
+  }
+  nav footer {
+    display:none;
+  }
+  main{
+    grid-row:2/-1;
+    grid-column:1/-1;
+    box-shadow:none;
+    height:100%;
+  }
+  #hero2{
+    display:inline-block;
+    background-color:none;
+  }
+  .footer-main footer{
+    grid-row:7/8;
+    grid-column:1/-1;
+    display:block;
+    position:absolute;
+    text-align:center;
+    font-family:arial;
+    font-style:italic;
+    font-size:0.7rem;
+    align-items:center;
+    border:solid;
+    border-color:red;
+    margin-top:auto;
+  }
   .forum-index{
     grid-template-columns: 1fr; 
   }
@@ -382,7 +451,7 @@ a:hover{ text-decoration:underline; }
 }
 @media (max-width: 680px){
   .topic-head{
-    display:none; 
+    /*display:none;*/ 
   }
   .topic-row{
     grid-template-columns: 1fr;
@@ -393,25 +462,23 @@ a:hover{ text-decoration:underline; }
   }
 }
 /*-----END PEASANT SCREENS-----*/
-
 /*-----DIVIDERS-----*/
 .divider{
   height:1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
   margin: 12px 0 20px;
 }
 .divider1{
   height:1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
   margin-top:12px;
 }
 .divider2{
   height:1px;
-  background: linear-gradient(90deg, transparent, rgba(255,255,255,.65), transparent);
+  background: linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
   margin-bottom:12px;
 }
 /*-----END DIVIDERS-----*/
-
 /*-----FONT STYLING-----*/
 body{
   font-family: "Bona Nova SC", serif;
