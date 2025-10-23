@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ post.title or 'Post' }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro">
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="overlay">
+      <div id="wrapper">
+        <div id="hero"><img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
+        <div id="top"></div>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
+          </ul>
+          <div class="divider"></div>
+          <footer>Copyright &copy; 2025 stay@homewives</footer>
+        </nav>
+        <main class="content" style="padding:18px; text-align:left; max-width:900px;">
+          <article class="widget">
+            <h2 style="margin-top:0;">{{ post.title or 'Untitled' }}</h2>
+            <div class="topic-meta" style="margin-bottom:8px;">
+              by <strong>{{ post.user }}</strong>
+              <time>{{ post.time|convert_time }}</time>
+              {{ post.views }} views
+            </div>
+            {% if user and user.username == post.user %}
+            <form method="post"
+                  action="{{ url_for('posts.delete_post', post_id=post.doc_id) }}"
+                  onsubmit="return confirm('Delete this post? This cannot be undone.');"
+                  style="margin:6px 0 14px;">
+              <button class="btn small" type="submit">Delete post</button>
+            </form>
+          {% endif %}
+          <div style="white-space:pre-wrap;">{{ post.text }}</div>
+        </article>
+          <section style="margin-top:16px;">
+            <h3>Comments ({{ post.comments|length }})</h3>
+            {% if post.comments %}
+              <div style="display:flex; flex-direction:column; gap:12px;">
+                  {% for c in post.comments %}
+<div class="widget" style="text-align:left;">
+  <div style="display:flex; align-items:center; gap:10px;">
+    <div style="font-weight:700;">{{ c.author }}</div>
+    <div style="opacity:.8; font-size:.9rem;">
+      <time>{{ c.time|convert_time }}</time>
+    </div>
+
+    {% if user and (user.username == c.author or user.username == post.user) %}
+      <form method="post"
+            action="{{ url_for('posts.delete_comment', post_id=post.doc_id, idx=loop.index0) }}"
+            onsubmit="return confirm('Delete this comment?');"
+            style="margin-left:auto;">
+        <button class="btn small" type="submit">Delete</button>
+      </form>
+    {% endif %}
+  </div>
+  <div style="margin-top:6px; white-space:pre-wrap;">{{ c.body }}</div>
+</div>
+{% endfor %}
+              </div>
+            {% else %}
+              <p>No comments yet.</p>
+            {% endif %}
+            <form method="post" action="{{ url_for('posts.add_comment', post_id=post.doc_id) }}" style="margin-top:12px; display:flex; flex-direction:column; gap:10px;">
+              <label>Add a comment
+                <textarea name="body" rows="4" required style="width:100%; padding:8px;"></textarea>
+              </label>
+              <button class="btn" type="submit">Submit</button>
+            </form>
+          </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

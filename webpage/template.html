@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title></title>
+    <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro" />
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="overlay">
+    <div id="wrapper">
+        <div id="hero"><img src="css/assets/hero2.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
+        <div id="top"></div>
+        <!--NAV-->
+        <nav>
+        <div id="hero2"><img src="css/assets/hero2.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
+        <!-- LOGIN -->
+        <div id="login">
+          {% if logged_in %}
+            <form method="post" action="{{ url_for('login.logout') }}" style="display:inline;">
+              <button class="btn small" type="submit">Logout</button>
+            </form>
+          {% else %}
+            <a class="btn small" href="{{ url_for('login.loginscreen') }}">Login</a>
+          {% endif %}
+        </div>
+        <div class="divider1"></div>
+        <!-- END LOGIN -->
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
+        </ul>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">General</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Deck Pics</a></li>
+        </ul>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Crews</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">List Crews:</a></li>
+        </ul>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Posts</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Comments</a></li>
+        </ul>
+        <div class="divider2"></div>
+        <footer>Copyright &copy; 2025 stay@homewives</footer>
+        </nav>
+        <!--END NAV-->
+    <main class="content">
+      <section class="forum-index">
+
+        <!--FORUMS-->
+        <div class="topics">
+
+          <!--COLUMN HEADERS-->
+          <div class="topic-row topic-head">
+            <div class="c-topic">changeme</div>
+            <div class="c-replies">changeme</div>
+            <div class="c-views">changeme</div>
+            <div class="c-last">changeme</div>
+          </div>
+          <!--END COLUMN HEADERS-->
+
+        </div>
+      </section>
+      <!--END FORUMS-->
+
+    </main>
+    </div>
+    </div>
+
+  <script src="scripts/changeme.js"></script>
+  </body>
+</html>

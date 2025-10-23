@@ -1,14 +1,14 @@
+# Project: Pirate Wizard Codegrindr
+
 # Business Context
 
 Dating apps are used to bring people with similar interests together and set them up on dates. There are many unexplored niches in the matchmaking industry.
 
 # Problem Statement
 
-Pirates have few opportunities to meet and match up on the open seas.
+Pirate-Wizard segregation is a societal seed for discrimination and oppression. Through social engineering, we will reduce this divide and promote equality across the seven seas and realms.
 
 # Scope
-
-Using an advanced network of messages in bottles and note-carrying parrots, we will connect pirates to share their plunder.
 
 This app will be available via web browsers and viewable from desktop only and if you view it on a phone it blows up the phone.
 
@@ -42,7 +42,12 @@ Users who mutually "like" one another will be provided an opportunity to chat.
 
 Users can upgrade their experience through a purchase, providing premium features
 
-Users may randomly discover curses that will modify their profile in negative ways
+<<<<<<< HEAD:app.md
+Premium features:
+    - TBDDDDDDDD
+=======
+Users may randomly discover curses and hexes that will modify their profile in negative ways
+>>>>>>> 9f183e4 (class demo):requirements.md
 
 Premium features:
 - Cursing other users for a small fee
