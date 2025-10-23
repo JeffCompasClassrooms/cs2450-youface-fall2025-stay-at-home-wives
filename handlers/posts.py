@@ -16,13 +16,14 @@ def post():
         flask.flash('You need to be logged in to do that.', 'danger')
         return flask.redirect(flask.url_for('login.loginscreen'))
 
+    title = flask.request.form.get('title', '').strip()
     text = flask.request.form.get('post', '').strip()
     if not text:
         flask.flash('Post cannot be empty.', 'danger')
         return flask.redirect(flask.url_for('login.index'))
-
-    posts_db.add_post(db, user, text)
-    return flask.redirect(flask.url_for('login.index'))
+    
+    post_id=posts_db.add_post(db, user, text, title)
+    return flask.redirect(flask.url_for('posts.view_post',post_id=post_id))
 
 @blueprint.get('/posts/<int:post_id>')
 def view_post(post_id):
