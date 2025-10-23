@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{{ post.title or 'Post' }}</title>
+    <title>New Post</title>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro">
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
@@ -11,8 +12,11 @@
   <body>
     <div id="overlay">
       <div id="wrapper">
-        <div id="hero"><img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
+        <div id="hero">
+          <img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200">
+        </div>
         <div id="top"></div>
+
         <nav>
           <ul>
             <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
@@ -20,6 +24,7 @@
           <div class="divider"></div>
           <footer>Copyright &copy; 2025 stay@homewives</footer>
         </nav>
+
         <main class="content" style="padding:18px; text-align:left; max-width:900px;">
           <article class="widget">
             <h2 style="margin-top:0;">{{ post.title or 'Untitled' }}</h2>
