@@ -8,9 +8,9 @@ from handlers import friends, login, posts
 
 app = flask.Flask(
     __name__,
-    template_folder='webpage',     # <-- serve templates from webpage/
-    static_folder='webpage',       # <-- serve static from webpage/
-    static_url_path=''             # <-- blank so /css/style.css keeps working
+    template_folder='webpage',     
+    static_folder='webpage',       
+    static_url_path=''             
 )
 
 @app.template_filter('convert_time')

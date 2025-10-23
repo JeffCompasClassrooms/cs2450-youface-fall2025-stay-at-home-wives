@@ -137,3 +137,6 @@ def index():
         logged_in=logged_in,
     )
 
+@blueprint.route('/template')
+def template_page():
+    return flask.render_template('template.html')
