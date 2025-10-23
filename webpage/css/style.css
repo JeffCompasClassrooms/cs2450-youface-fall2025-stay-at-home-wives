@@ -402,6 +402,9 @@ a:hover{ text-decoration:underline; }
     width:auto;
     list-style-type:none;
   }
+#top{
+  display:none;
+}
   nav ul li{
     padding:0 0;
   }
