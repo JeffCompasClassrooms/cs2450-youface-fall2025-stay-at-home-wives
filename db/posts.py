@@ -3,7 +3,6 @@ import tinydb
 
 def add_post(db, user, text, title=None):
     posts = db.table('posts')
-    posts.insert({'user': user['username'], 'text': text, 'time': time.time()})
     doc = {
         "user": user["username"],
         "title": title if title else None,
