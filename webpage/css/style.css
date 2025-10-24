@@ -337,6 +337,52 @@ a:hover{ text-decoration:underline; }
   gap:10px;
   margin-top:14px;
 }
+
+/*----- CUSTOM FILE UPLOAD -----*/
+.file-upload-wrapper {
+  position: relative;
+  margin: 1rem 0;
+}
+
+.file-upload-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: linear-gradient(180deg, rgba(255,255,255,.90), rgba(255,255,255,1));
+  border: 1px solid rgba(10, 79, 109, 0.3);
+  border-radius: 8px;
+  color: var(--nautical);
+  font-weight: 600;
+  font-family: "Bona Nova SC", serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/*
+.file-upload-label:hover {
+  background: linear-gradient(180deg, rgba(10, 79, 109, 0.05), rgba(10, 79, 109, 0.1));
+  border-color: var(--nautical);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(10, 79, 109, 0.15);
+}
+*/
+.file-upload-input {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
+
+.file-name-display {
+  margin-top: 8px;
+  font-size: 0.9rem;
+  color: var(--ink);
+  opacity: 0.8;
+  font-style: italic;
+  min-height: 1.2em;
+}
+/*----- END CUSTOM FILE UPLOAD -----*/
+
 /*----END POSTS---- */
 
 .footer-main footer{

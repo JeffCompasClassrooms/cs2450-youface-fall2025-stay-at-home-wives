@@ -1,7 +1,24 @@
 import flask
 from db import posts as posts_db, helpers as helpers_db, users as users_db
+#os for file paths, 
+#uuid creates uniqe names for the files (hash maybe more efficient?, uuid was reccomended),
+#secure_filename removes dangerous chars from the file names
+import os
+import uuid
+from werkzeug.utils import secure_filename
 
 blueprint = flask.Blueprint("posts", __name__)
+
+#prob shouldnt be global, can/will change if needed
+#keeps image uploads in a dedicated folder and gives type and size limits
+UPLOAD_FOLDER = 'static/uploads'
+ALLOWED_EXTENSIONS = {'jpg', 'png', 'jpeg', 'webp'}
+MAX_FILE_SIZE = 8 * 1024 * 1024
+
+#helper function for checking file types
+def allowed_file_type(filename):
+    return '.' in filename and \
+        filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 @blueprint.route('/post', methods=['POST'])
 def post():
@@ -22,7 +39,38 @@ def post():
         flask.flash('Post cannot be empty.', 'danger')
         return flask.redirect(flask.url_for('login.index'))
     
-    post_id=posts_db.add_post(db, user, text, title)
+    image_filename = None
+    
+    #image uploading maybe?
+    if 'image' in flask.request.files:
+        file = flask.request.files['image']
+        #keeping debug prints for now as i have not done enough testing at all,
+        #these appear within the terminal
+        print(f"DEBUG: FILE OBJECT: {file}")
+        print(f'DEBUG: FILENAME: {file.filename}')
+        if file and file.filename != '' and allowed_file_type(file.filename):
+            print("DEBUG: File is valid, processing upload...")
+            originalFilename = secure_filename(file.filename)
+            uniqueFilename = f"{uuid.uuid4().hex}_{originalFilename}"
+
+            os.makedirs(UPLOAD_FOLDER, exist_ok=True)
+            print(f"DEBUG: Upload folder: {UPLOAD_FOLDER}")
+
+            file_path = os.path.join(UPLOAD_FOLDER, uniqueFilename)
+            print(f"DEBUG: Saving to: {file_path}")
+
+            file.save(file_path)
+            
+            if os.path.exists(file_path):
+                print(f"DEBUG: File saved successfully: {file_path}")
+                image_filename = uniqueFilename
+            else:
+                print("DEBUG: FILE SAVE FAILED!")
+        else:
+            if file and file.filename != '':
+                flask.flash("Invalid IMG file")
+    
+    post_id=posts_db.add_post(db, user, text, title, image_filename)
     return flask.redirect(flask.url_for('posts.view_post',post_id=post_id))
 
 @blueprint.get('/posts/<int:post_id>')
@@ -140,3 +188,14 @@ def delete_comment(post_id, idx):
         flask.flash('Could not delete comment.', 'danger')
 
     return flask.redirect(flask.url_for('posts.view_post', post_id=post_id))
+
+#this allows the images to be displayed, why, i have no idea
+@blueprint.route('/uploads/<filename>')
+def serve_uploaded_file(filename):
+    return flask.send_from_directory(UPLOAD_FOLDER, filename)
+
+#---MOVE TO DOCUMENTATION FILE?---
+#Image posting flow
+#User Upload → Flask Receives → Validate → Secure Name → Save to Disk → 
+#Store in DB → Template Request → URL Generation → Custom Route → 
+#File Served → Browser Displays
