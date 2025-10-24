@@ -1,7 +1,16 @@
 import time
 import tinydb
 
+MAX_TITLE_LEN = 120
+MAX_POST_LEN = 2000
+MAX_COMMENT_LEN = 500
+
 def add_post(db, user, text, title=None):
+    if title and len(title) > MAX_TITLE_LEN:
+        return False
+    if len(text) > MAX_POST_LEN:
+        return False
+
     posts = db.table('posts')
     doc = {
         "user": user["username"],
@@ -34,6 +43,9 @@ def get_post_by_id(db, post_id: int):
     return ensure_shape(doc)
 
 def add_comment(db, post_id: int, author_name: str, body: str):
+    if len(body) > MAX_COMMENT_LEN:
+        return False
+    
     table = db.table('posts')
     doc = table.get(doc_id=post_id)
     if not doc:
