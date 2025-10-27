@@ -1,7 +1,18 @@
 import flask
 from db import posts as posts_db, helpers as helpers_db, users as users_db
+#os for file paths, 
+#uuid creates uniqe names for the files
+#secure_filename removes dangerous chars from the file names
+import os
+import uuid
+from werkzeug.utils import secure_filename
 
 blueprint = flask.Blueprint("posts", __name__)
+
+upload_folder = 'backend/uploads'
+allowed_extensions={'jpg','png','jpeg','webp'}
+max_file_size=8*1024*1024
+
 
 @blueprint.route('/post', methods=['POST'])
 def post():
@@ -22,7 +33,25 @@ def post():
         flask.flash('Post cannot be empty.', 'danger')
         return flask.redirect(flask.url_for('login.index'))
     
-    post_id=posts_db.add_post(db, user, text, title)
+    #post_id=posts_db.add_post(db, user, text, title)
+
+
+    image_filename=None
+    if 'image' in flask.request.files:
+        file=flask.request.files['image']
+    if file and file.filename != '' and allowed_file_type(file.filename):
+        originalFilename=secure_filename(file.filename)
+        uniqueFilename = f"{uuid.uuid4().hex}_{originalFilename}"
+        os.makedirs(upload_folder, exist_ok=True)
+        file_path=os.path.join(upload_folder,uniqueFilename)
+        file.save(file_path)
+        if os.path.exists(file_path):
+            image_filename=uniqueFilename
+    else:
+        if file and file.filename != '':
+            flask.flash("Invalid IMG file")
+    post_id=posts_db.add_post(db,user,text,title,image_filename)
+
     return flask.redirect(flask.url_for('posts.view_post',post_id=post_id))
 
 @blueprint.get('/posts/<int:post_id>')
@@ -140,3 +169,12 @@ def delete_comment(post_id, idx):
         flask.flash('Could not delete comment.', 'danger')
 
     return flask.redirect(flask.url_for('posts.view_post', post_id=post_id))
+
+
+def allowed_file_type(filename):
+    return '.' in filename and \
+            filename.rsplit('.',1)[1].lower() in allowed_extensions
+
+@blueprint.route('/backend/uploads/<filename>')
+def serve_uploaded_file(filename):
+    return flask.send_from_directory(upload_folder,filename)
