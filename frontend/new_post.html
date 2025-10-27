@@ -8,6 +8,9 @@
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro">
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='css/assets/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/assets/favicon.png') }}" type="image/x-icon">
   </head>
   <body>
     <div id="overlay">
@@ -39,7 +42,7 @@
                   </div>
                 {% endif %}
               {% endwith %}
-
+<!-- OLD POSTS
               <form method="post" action="{{ url_for('posts.post') }}">
                 <div class="form-grid">
                   <label for="title">Title</label>
@@ -48,7 +51,33 @@
                   <label for="body">Post</label>
                   <textarea id="body" name="post" class="textarea" rows="10" required placeholder="What’s on your mind?"></textarea>
                 </div>
+                <div class="actions">
+                  <form action="/upload" method="post" enctype="multipart/form-data">
+                    <label for="imageUpload">img</label>
+                    <input type="file" id="imageUpload" name="image" accept="image/jpeg, image/png, image/webp"/>
+                  </form>
+                  <a class="btn ghost" href="{{ url_for('login.index') }}">Cancel</a>
+                  <button class="btn" type="submit">Publish</button>
+                </div>
+              </form> -->
 
+              <form method="post" action="{{ url_for('posts.post') }}" enctype="multipart/form-data">
+                <div class="form-grid">
+                  <label for="title">Title</label>
+                  <input id="title" name="title" type="text" class="input" placeholder="Optional">
+                  <label for="body">Post</label>
+                  <textarea id="body" name="post" class="textarea" rows="10" required placeholder="What's on your mind?"></textarea>
+                  <!-- Custom File Upload -->
+                  <label>Add Image</label>
+                  <div class="file-upload-wrapper">
+                    <label for="imageUpload" class="file-upload-label">
+                      Choose Image
+                    </label>
+                    <input type="file" id="imageUpload" name="image" accept="image/jpeg, image/png, image/webp" class="file-upload-input">
+                    <div id="fileNameDisplay" class="file-name-display">
+                    </div>
+                </div>
+                
                 <div class="actions">
                   <a class="btn ghost" href="{{ url_for('login.index') }}">Cancel</a>
                   <button class="btn" type="submit">Publish</button>
@@ -59,6 +88,16 @@
         </main>
       </div>
     </div>
+    <script>
+    document.getElementById('imageUpload').addEventListener('change', function(e) {
+      const fileNameDisplay = document.getElementById('fileNameDisplay');
+      if (this.files.length > 0) {
+        fileNameDisplay.textContent = 'Selected: ' + this.files[0].name;
+      } else {
+        fileNameDisplay.textContent = '';
+      }
+    });
+    </script>
   </body>
 </html>
 

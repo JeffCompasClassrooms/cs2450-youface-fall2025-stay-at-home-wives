@@ -1,7 +1,7 @@
 import time
 import tinydb
 
-def add_post(db, user, text, title=None):
+def add_post(db, user, text, title=None, image_filename=None):
     posts = db.table('posts')
     doc = {
         "user": user["username"],
@@ -10,6 +10,7 @@ def add_post(db, user, text, title=None):
         "time": time.time(),
         "comments": [],
         "views": 0,
+        "image": image_filename,
     }
     return posts.insert(doc)
 
@@ -24,6 +25,8 @@ def ensure_shape(p):
         p['comments'] = []
     if 'views' not in p:
         p['views'] = 0
+    if 'image' not in p:
+        p['image'] = None
     return p
 
 def get_post_by_id(db, post_id: int):
