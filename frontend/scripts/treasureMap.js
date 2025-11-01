@@ -5,8 +5,10 @@ const canvas = document.querySelector("#mapCanvas");
 let rect = canvas.getBoundingClientRect();
 canvas.width = rect.width;
 canvas.height = rect.height;
+canvas.style.width = "" + rect.width + "px";
+canvas.style.height = "" + rect.height + "px";
 const ctx = canvas.getContext("2d");
-let pointDistance = 3;
+let pointDistance = 5;
 
 function checkInterpolation(interp, interval) {
     let i = 0;
@@ -116,19 +118,26 @@ function popPoint(mouseQueue) {
 let dotInterval = 20;
 let dotIterator = 0;
 
-let lineColor = "#88110055";
+let lineColor = "#881100";
 ctx.strokeStyle = lineColor;
-ctx.lineWidth = 10;
+ctx.lineWidth = 20;
 
-const mapDrawDaemon = setInterval(() => {
-    // only mutate the mouseQueue if it actually has enough points to draw
-    let points = extractPoints(mouseQueue, 3);
-    if (points === null) return;
-    popPoint(mouseQueue);
-    if (dotIterator++ % dotInterval > (dotInterval / 2)) {
-        ctx.beginPath();
-        ctx.moveTo(...points[0]);
-        ctx.bezierCurveTo(...points[1], ...points[1], ...points[2]);
-        ctx.stroke();
+async function mapDraw() {
+    // mutate the mouseQueue while it actually has enough points to draw
+    let points;
+    if ((points = extractPoints(mouseQueue, 3)) !== null) {
+        popPoint(mouseQueue);
+        if (dotIterator++ % dotInterval > (dotInterval / 2)) {
+            ctx.beginPath();
+            ctx.moveTo(...points[0]);
+            ctx.bezierCurveTo(...points[1], ...points[1], ...points[2]);
+            ctx.stroke();
+        }
+        /*
+        dotInterval += (Math.random() % 4) - 2
+        console.log(dotInterval);
+        */
     }
-}, 5)
+};
+
+setInterval(mapDraw, 10);
