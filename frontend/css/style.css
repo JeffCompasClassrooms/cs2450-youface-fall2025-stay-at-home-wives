@@ -23,7 +23,8 @@ html{
     left: 0;
     width: 100%;
     height: 100%;
-    background-image:linear-gradient(to bottom, #FF9900, #FFFF22);
+    background-image: url("assets/parchment.jpg");
+    background-size: cover;
 }
 
 #crumple {
@@ -35,10 +36,10 @@ html{
     background-image: url("assets/crumple.png");
     background-repeat:repeat;
     background-size: cover;
-    opacity: 70%;
+    opacity: 40%;
 }
 
-#mapCanvas {
+.mapCanvas {
     position: absolute;
     top: 0;
     left: 0;
