@@ -14,6 +14,10 @@
   </head>
   <body>
     <div id="overlay">
+        <div id="parchment">
+            <div id="crumple"></div>
+            <canvas class="mapCanvas" id="map"></canvas>
+        </div>
       <div id="wrapper">
         <div id="hero"><img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
         <div id="top"></div>
@@ -87,5 +91,9 @@
         </main>
       </div>
     </div>
+  <script src="/scripts/ripple.js"></script>
+  <script src="/scripts/treasureMap.js"></script>
+  <script src="/scripts/mapAssets.js"></script>
+  <script src="/scripts/music.js"></script>
   </body>
 </html>

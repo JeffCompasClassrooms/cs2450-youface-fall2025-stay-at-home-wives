@@ -1,5 +1,5 @@
   (function(){
-    const bg = document.querySelector('.ocean-bg');
+    const bg = document.querySelector('#overlay');
     if(!bg) return;
 
     const ripple = document.createElement('div');
