@@ -44,6 +44,18 @@
           <footer>Copyright &copy; 2025 stay@homewives</footer>
         </nav>
         <main class="content" style="padding:18px; text-align:left; max-width:900px;">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              <div class="flash-wrap">
+                {% for category, message in messages %}
+                  <div class="flash flash-{{ category }}">
+                    <strong>{{ category.title() }}:</strong> {{ message }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
+
           <article class="widget">
             <h2 style="margin-top:0;">{{ post.title or 'Untitled' }}</h2>
             <div class="topic-meta" style="margin-bottom:8px;">

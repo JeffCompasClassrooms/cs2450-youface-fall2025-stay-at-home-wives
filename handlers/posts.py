@@ -68,7 +68,7 @@ def post():
                 print("DEBUG: FILE SAVE FAILED!")
         else:
             if file and file.filename != '':
-                flask.flash("Invalid IMG file")
+                flask.flash("Invalid IMG file",'danger')
     
     post_id=posts_db.add_post(db, user, text, title, image_filename)
     return flask.redirect(flask.url_for('posts.view_post',post_id=post_id))
