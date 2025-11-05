@@ -1,6 +1,5 @@
 const mouseQueue = [];
 mouseQueue.actualLength = 0;
-const resolutionScale = 5;
 
 const mapCanvas = document.querySelector("#map");
 let rect = mapCanvas.getBoundingClientRect();
@@ -80,11 +79,11 @@ drawCanvasDaemon();
 
 function drawCompass() {
     let compassRose = new Image();
-    compassRose.src = "css/assets/compassRose.png";
+    compassRose.src = "/css/assets/compassRose.png";
     compassRose.onload = () => {
         queueCanvasDraw(
             async () => {
-                let x = mapCanvas.width * (3 / 15);
+                let x = mapCanvas.width * (2 / 15);
                 let y = mapCanvas.height * (8 / 10);
                 mapContext.drawImage(compassRose, x, y, 150, 150);
             },
@@ -186,8 +185,21 @@ function drawIsland(center, shorePointCount, baseMagnitude, noisiness) {
     );
 }
 
+queueCanvasDraw(
+    () => {
+        mapContext.fillStyle = "#ffffffa0";
+        mapContext.moveTo(0, 0);
+        mapContext.beginPath();
+        mapContext.lineTo(mapCanvas.width, 0);
+        mapContext.lineTo(mapCanvas.width, mapCanvas.height);
+        mapContext.lineTo(0, mapCanvas.height);
+        mapContext.lineTo(0, 0);
+        mapContext.fill();
+    },
+    []
+);
 drawCompass()
-drawIsland([Math.random() * rect.width, Math.random() * rect.height], 10, 300, 250);
+drawIsland([Math.random() * rect.width, Math.random() * rect.height], 10, 300, 400);
 
 let pointDistance = 5;
 
@@ -200,14 +212,14 @@ function checkInterpolation(interp, interval) {
         current = pointNext(interp);
         let distance = distBetween(prior, current);
         let error = Math.abs(interval - distance);
-        if (error > 0.1) {
+        if (error > 0.01) {
             console.error("error > 0.1 on iteration", i, "with", current, "as current and", prior, "as prior");
             failureCount++;
         }
         prior = current;
         i++;
     }
-    console.log("failure count:", failureCount);
+    return failureCount;
 }
 
 // generate a map to get from `p1` to `p2` in the correct number of steps.
@@ -377,4 +389,4 @@ async function mapDrawOne() {
     else return false;
 };
 
-let mapDrawDaemon = setInterval(mapDrawOne, 1);
+let mapDrawDaemon = setInterval(mapDrawOne, 5);

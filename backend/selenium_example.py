@@ -12,8 +12,8 @@ options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(options=options)
 
 try:
-    driver.get("http://localhost:3000/loginscreen")
-    time.sleep(2)
+    driver.get("http://localhost:8000/map.html")
+    #time.sleep(2)
 
     print("--= Beginning Tests =--")
     login_button = driver.find_element(By.CSS_SELECTOR, "input[type='submit'][value='Login']")
