@@ -105,7 +105,6 @@ def new_post_form():
     return flask.render_template('new_post.html', logged_in=True, user=user, username=username)
 
 @blueprint.post('/posts/<int:post_id>/delete')
-
 def delete_post(post_id):
     """Delete a post (only by its author)."""
     db = helpers_db.load_db()
