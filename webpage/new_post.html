@@ -41,28 +41,6 @@
                   </div>
                 {% endif %}
               {% endwith %}
-
-              <!--
-              <form method="post" action="{{ url_for('posts.post') }}">
-                <div class="form-grid">
-                  <label for="title">Title</label>
-                  <input id="title" name="title" type="text" class="input" placeholder="Optional">
-
-                  <label for="body">Post</label>
-                  <textarea id="body" name="post" class="textarea" rows="10" required placeholder="What’s on your mind?"></textarea>
-                </div>
-
-                <div class="actions">
-                  <form action="/upload" method="post" enctype="multipart/form-data">
-                    <label for="imageUpload">img</label> 
-                    <input type="file" id="imageUpload" name="image" accept="image/jpeg, image/png, image/webp"/>
-                  </form>
-                  <a class="btn ghost" href="{{ url_for('login.index') }}">Cancel</a>
-                  <button class="btn" type="submit">Publish</button>
-                </div>
-              </form> -->
-
-              <!--had to break this, sorry josh...-->
               <form method="post" action="{{ url_for('posts.post') }}" enctype="multipart/form-data">
                 <div class="form-grid">
                   <label for="title">Title</label>
