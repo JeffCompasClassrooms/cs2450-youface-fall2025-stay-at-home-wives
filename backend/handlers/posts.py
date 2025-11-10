@@ -68,7 +68,8 @@ def view_post(post_id):
         return ("Post not found", 404)
 
     posts_db.increment_views(db, post_id)
-    return flask.render_template('posts.html', post=p, username=username, user=user)
+    return p
+    #return flask.render_template('posts.html', post=p, username=username, user=user)
 
 @blueprint.post('/posts/<int:post_id>/comment')
 def add_comment(post_id):
