@@ -12,7 +12,7 @@ options.add_argument("--disable-dev-shm-usage")
 driver = webdriver.Chrome(options=options)
 
 try:
-    driver.get("http://localhost:8000/map.html")
+    driver.get("http://localhost:3000/loginscreen")
     #time.sleep(2)
 
     print("--= Beginning Tests =--")

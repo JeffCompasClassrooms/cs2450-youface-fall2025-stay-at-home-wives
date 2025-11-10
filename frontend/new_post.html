@@ -14,23 +14,49 @@
   </head>
   <body>
     <div id="overlay">
-        <div id="parchment">
+        <!--<div id="parchment">
             <div id="crumple"></div>
             <canvas class="mapCanvas" id="map"></canvas>
-        </div>
+        </div>-->
       <div id="wrapper">
         <div id="hero">
           <img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200">
         </div>
         <div id="top"></div>
 
+        <!--NAV-->
         <nav>
-          <ul>
-            <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
-          </ul>
-          <div class="divider"></div>
-          <footer>Copyright &copy; 2025 stay@homewives</footer>
+        <div id="hero2"><img src="css/assets/hero2.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
+        <!-- LOGIN -->
+        <div id="login">
+          {% if logged_in %}
+            <form method="post" action="{{ url_for('login.logout') }}" style="display:inline;">
+              <button class="btn small" type="submit">Logout</button>
+            </form>
+          {% else %}
+            <a class="btn small" href="{{ url_for('login.loginscreen') }}">Login</a>
+          {% endif %}
+        </div>
+        <div class="divider1"></div>
+        <!-- END LOGIN -->
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Seven-Seas</a></li>
+        </ul>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.template_page') }}" class="icon navigate">Template Crews</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">List Crews:</a></li>
+        </ul>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Posts</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Comments</a></li>
+        </ul>
+        <div class="divider2"></div>
+        <footer>Copyright &copy; 2025 stay@homewives</footer>
         </nav>
+        <!--END NAV-->
 
         <main class="content">
           <section class="compose">
@@ -102,10 +128,10 @@
       }
     });
     </script>
-  <script src="/scripts/ripple.js"></script>
+ <!-- <script src="/scripts/ripple.js"></script>
   <script src="/scripts/treasureMap.js"></script>
   <script src="/scripts/mapAssets.js"></script>
-  <script src="/scripts/music.js"></script>
+  <script src="/scripts/music.js"></script>-->
   </body>
 </html>
 
