@@ -84,25 +84,24 @@
             {% if post.comments %}
               <div style="display:flex; flex-direction:column; gap:12px;">
                   {% for c in post.comments %}
-<div class="widget" style="text-align:left;">
-  <div style="display:flex; align-items:center; gap:10px;">
-    <div style="font-weight:700;">{{ c.author }}</div>
-    <div style="opacity:.8; font-size:.9rem;">
-      <time>{{ c.time|convert_time }}</time>
-    </div>
-
-    {% if user and (user.username == c.author or user.username == post.user) %}
-      <form method="post"
-            action="{{ url_for('posts.delete_comment', post_id=post.doc_id, idx=loop.index0) }}"
-            onsubmit="return confirm('Delete this comment?');"
-            style="margin-left:auto;">
-        <button class="btn small" type="submit">Delete</button>
-      </form>
-    {% endif %}
-  </div>
-  <div style="margin-top:6px; white-space:pre-wrap;">{{ c.body }}</div>
-</div>
-{% endfor %}
+        <div class="widget" style="text-align:left;">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <div style="font-weight:700;">{{ c.author }}</div>
+            <div style="opacity:.8; font-size:.9rem;">
+              <time>{{ c.time|convert_time }}</time>
+            </div>
+            {% if user and (user.username == c.author or user.username == post.user) %}
+              <form method="post"
+                    action="{{ url_for('posts.delete_comment', post_id=post.doc_id, idx=loop.index0) }}"
+                    onsubmit="return confirm('Delete this comment?');"
+                    style="margin-left:auto;">
+                <button class="btn small" type="submit">Delete</button>
+              </form>
+            {% endif %}
+          </div>
+          <div style="margin-top:6px; white-space:pre-wrap;">{{ c.body }}</div>
+        </div>
+        {% endfor %}
               </div>
             {% else %}
               <p>No comments yet.</p>
@@ -117,9 +116,5 @@
         </main>
       </div>
     </div>
- <!-- <script src="/scripts/ripple.js"></script>
-  <script src="/scripts/treasureMap.js"></script>
-  <script src="/scripts/mapAssets.js"></script>
-  <script src="/scripts/music.js"></script>-->
   </body>
 </html>
