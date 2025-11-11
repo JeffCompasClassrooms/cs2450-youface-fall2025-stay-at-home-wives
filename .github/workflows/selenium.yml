@@ -28,7 +28,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install -r requirements.txt
+          pip install -r .bak/requirements.txt
           pip install selenium
 
       - name: Start Flask app in background
@@ -40,4 +40,4 @@ jobs:
         env:
           SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
         run: |
-          python selenium_example.py
+          python .bak/selenium_example.py
