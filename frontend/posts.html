@@ -3,27 +3,24 @@
   <head>
     <title>{{ post.title or 'Post' }}</title>
     <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro">
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="{{ url_for('static', filename='css/assets/favicon_test2.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ url_for('static', filename='css/assets/favicon_test2.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='css/assets/favicon.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ url_for('static', filename='css/assets/favicon.png') }}" type="image/x-icon">
   </head>
   <body>
     <div id="overlay">
-        <!--<div id="parchment">
-            <div id="crumple"></div>
-            <canvas class="mapCanvas" id="map"></canvas>
-        </div>-->
       <div id="wrapper">
         <div id="hero"><img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
         <div id="top"></div>
         <!--NAV-->
         <nav>
-        <div id="hero2"><img src="css/assets/hero2.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
+            <div id="hero2">
+              <img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200">
+            </div>
         <!-- LOGIN -->
         <div id="login">
           {% if logged_in %}

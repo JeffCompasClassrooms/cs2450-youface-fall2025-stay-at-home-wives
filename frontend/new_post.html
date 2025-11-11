@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro" />
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="{{ url_for('static', filename='css/assets/favicon.png') }}" type="image/x-icon">
@@ -16,7 +16,6 @@
     <div id="wrapper">
         <div id="hero"><img src="css/assets/hero2.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
         <div id="top"></div>
-
         <!--NAV-->
         <nav>
         <div id="hero2"><img src="css/assets/hero2.png" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
@@ -50,7 +49,6 @@
         <footer>Copyright &copy; 2025 stay@homewives</footer>
         </nav>
         <!--END NAV-->
-
         <main class="content">
           <section class="compose">
             <div class="card">
@@ -65,7 +63,7 @@
                   </div>
                 {% endif %}
               {% endwith %}
-<!-- OLD POSTS
+        <!-- OLD POSTS
               <form method="post" action="{{ url_for('posts.post') }}">
                 <div class="form-grid">
                   <label for="title">Title</label>
@@ -83,7 +81,6 @@
                   <button class="btn" type="submit">Publish</button>
                 </div>
               </form> -->
-
               <form method="post" action="{{ url_for('posts.post') }}" enctype="multipart/form-data">
                 <div class="form-grid">
                   <label for="title">Title</label>
@@ -100,7 +97,6 @@
                     <div id="fileNameDisplay" class="file-name-display">
                     </div>
                 </div>
-                
                 <div class="actions">
                   <a class="btn ghost" href="{{ url_for('login.index') }}">Cancel</a>
                   <button class="btn" type="submit">Publish</button>
@@ -111,16 +107,6 @@
         </main>
       </div>
     </div>
-    <script>
-    document.getElementById('imageUpload').addEventListener('change', function(e) {
-      const fileNameDisplay = document.getElementById('fileNameDisplay');
-      if (this.files.length > 0) {
-        fileNameDisplay.textContent = 'Selected: ' + this.files[0].name;
-      } else {
-        fileNameDisplay.textContent = '';
-      }
-    });
-    </script>
   </body>
 </html>
 

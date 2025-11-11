@@ -3,7 +3,8 @@ import time
 import flask
 import timeago
 import tinydb
-
+from db import helpers as helpers_db, users as users_db
+from flask import request
 from handlers import friends, login, posts
 
 app = flask.Flask(
@@ -16,6 +17,18 @@ app = flask.Flask(
 @app.template_filter('convert_time')
 def convert_time(ts):
     return timeago.format(ts, time.time())
+
+@app.context_processor
+def inject_auth():
+    db = helpers_db.load_db()
+    username = request.cookies.get('username')
+    password = request.cookies.get('password')
+    user = users_db.get_user(db, username, password) if username and password else None
+    return {
+        'username': username,
+        'user': user,
+        'logged_in': bool(user),
+    }
 
 # blueprints
 app.register_blueprint(friends.blueprint)
