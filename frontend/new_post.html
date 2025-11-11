@@ -79,7 +79,7 @@
                 </div>
                 
                 <div class="actions">
-                  <a class="btn ghost" href="{{ url_for('login.index') }}">Cancel</a>
+                  <a class="btn ghost" href="{{ url_for('crews.view_crews', crew_id=p.parent) }}">Cancel</a>
                   <button class="btn" type="submit">Publish</button>
                 </div>
               </form>

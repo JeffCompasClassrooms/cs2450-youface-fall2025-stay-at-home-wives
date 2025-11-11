@@ -2,12 +2,13 @@ import flask
 import tinydb
 
 from handlers import copy
-from db import posts, users, helpers
+from db import users, helpers
 
 blueprint = flask.Blueprint("login", __name__)
 
 @blueprint.route('/loginscreen')
 def loginscreen():
+    """serves the login page if not logged in, otherwise displays warning and goes to index"""
     db = helpers.load_db()
 
     # allow ?force=1 to always show the page
@@ -25,7 +26,8 @@ def loginscreen():
 
 @blueprint.route('/login', methods=['POST'])
 def login():
-    """Create, delete, or log in a user based on button clicked."""
+    """Create, delete, or log in a user based on button clicked, staying on page for 
+    failed login, account creation, or account deletion and doing to index otherwise"""
     db = helpers.load_db()
 
     username = flask.request.form.get('username', '').strip()
@@ -67,36 +69,9 @@ def login():
         flask.flash(f'Welcome back, {username}!', 'success')
         return set_cookies_and_redirect(username, password, 'login.index')
 
-"""def login():
-    db = helpers.load_db()
-
-    username = flask.request.form.get('username')
-    password = flask.request.form.get('password')
-
-    resp = flask.make_response(flask.redirect(flask.url_for('login.index')))
-    resp.set_cookie('username', username)
-    resp.set_cookie('password', password)
-
-    submit = flask.request.form.get('type')
-    if submit == 'Create':
-        if users.new_user(db, username, password) is None:
-            resp.set_cookie('username', '', expires=0)
-            resp.set_cookie('password', '', expires=0)
-            flask.flash('Username {} already taken!'.format(username), 'danger')
-            return flask.redirect(flask.url_for('login.loginscreen'))
-        flask.flash('User {} created successfully!'.format(username), 'success')
-    elif submit == 'Delete':
-        if users.delete_user(db, username, password):
-            resp.set_cookie('username', '', expires=0)
-            resp.set_cookie('password', '', expires=0)
-            flask.flash('User {} deleted successfully!'.format(username), 'success')
-
-    return resp
-"""
-
 @blueprint.route('/logout', methods=['POST'])
 def logout():
-    """Log out the user."""
+    """Log out the user by removing cookies, serves login page."""
     db = helpers.load_db()
 
     resp = flask.make_response(flask.redirect(flask.url_for('login.loginscreen')))
@@ -106,7 +81,7 @@ def logout():
 
 @blueprint.route('/')
 def index():
-    """Serves the main feed page for the user."""
+    """Serves the home page for the user."""
     db = helpers.load_db()
 
     # Who (if anyone) is logged in?
@@ -115,12 +90,10 @@ def index():
     user = users.get_user(db, username, password) if username and password else None
     logged_in = bool(user)
 
-    # Gather posts (show everything to guests too)
-    posts_table = db.table('posts')
+    # Gather crews (show everything to guests too) [change to crews]
+    crews_table = db.table('crews')
     docs = []
-    for doc in posts_table:
-        doc.setdefault('comments', [])
-        doc.setdefault('views', 0)
+    for doc in crews_table:
         docs.append(doc)
     docs.sort(key=lambda d: d['time'], reverse=True)
 
@@ -133,7 +106,7 @@ def index():
         user=user,
         username=username,
         friends=friends_list,
-        posts=docs,
+        crews=docs,
         logged_in=logged_in,
     )
 

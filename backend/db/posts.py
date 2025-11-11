@@ -1,11 +1,13 @@
 import time
 import tinydb
 
+# gets all posts associated with a given user
 def get_posts_by_user(db, user):
     posts = db.table('posts')
     Post = tinydb.Query()
     return posts.search(Post.user==user['username'])
 
+# gets a singular post via its ID
 def get_post_by_id(db, post_id: int):
     table = db.table('posts')
     doc = table.get(doc_id=post_id)
@@ -13,6 +15,7 @@ def get_post_by_id(db, post_id: int):
         return None
     return ensure_shape(doc)
 
+# increments the views on a post
 def increment_views(db, post_id: int):
     table = db.table('posts')
     doc = table.get(doc_id=post_id)
@@ -22,6 +25,7 @@ def increment_views(db, post_id: int):
     p['views'] += 1
     table.update(p, doc_ids=[post_id])
 
+# ensures all data is valid and follows conventions
 def ensure_shape(p):
     if 'views' not in p:
         p['views'] = 0
@@ -29,10 +33,11 @@ def ensure_shape(p):
         p['image'] = None
     return p
 
-def add_post(db, user, text, title=None, image_filename=None):
+# adds a new post to the db
+def add_post(db, crew_id, user, text, title=None, image_filename=None):
     posts = db.table('posts')
     doc = {
-        # "parent": crew["crew_id"],
+        "parent": crew_id,
         "user": user["username"],
         "title": title if title else None,
         "text": text,
@@ -42,19 +47,20 @@ def add_post(db, user, text, title=None, image_filename=None):
     }
     return posts.insert(doc)
 
+# edits the title, text, and image of a post in db, updates the time
 def edit_post(db, post_id, text, title=None, image_filename=None):
     posts = db.table('posts')
-    views = posts.get(doc_id=post_id)['views']
     Post = tinydb.Query()
     return posts.update({
         "title": title if title else None,
         "text": text,
         "time": time.time(),
-        "views": views,
         "image": image_filename,}, 
         Post.post_id == post_id)
 
+# deletes a post in db
 def delete_post(db, post_id: int) -> bool:
     """Delete a post by its TinyDB doc_id."""
     table = db.table('posts')
+    ########################### deletes all comments associated with post ###########################
     return bool(table.remove(doc_ids=[post_id]))

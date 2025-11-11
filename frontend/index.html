@@ -66,28 +66,28 @@
           <!--END COLUMN HEADERS-->
 
           <!-- POSTS -->
-          {% for p in posts %}
+          {% for c in crews %}
           <article class="topic-row">
             <div class="c-topic">
-              <a class="topic-title" href="{{ url_for('posts.view_post', post_id=p.doc_id) }}">
-                {{ (p.title if p.get('title') else (p.text[:70] ~ ('…' if p.text|length > 70 else ''))) }}
+              <a class="topic-title" href="{{ url_for('crews.view_crew', crew_id=c.doc_id) }}">
+                {{ (c.title if c.get('title') else (c.description[:70] ~ ('…' if c.description|length > 70 else ''))) }}
               </a>
               <div class="topic-meta">
-                by <a href="#">{{ p.user }}</a> •
-                <time datetime="">{{ p.time|convert_time }}</time>
+                by <a href="#">{{ c.user }}</a> •
+                <time datetime="">{{ c.time|convert_time }}</time>
               </div>
             </div>
             <!-- <div class="c-replies">{{ p.comments|length }}</div> -->
-            <div class="c-views">{{ "{:,}".format(p.views) }}</div>
+            <!-- <div class="c-views">{{ "{:,}".format(c.members) }}</div> -->
             <div class="c-last">
               <!-- {% if p.comments %}
                 <a href="#">{{ p.comments[-1].author }}</a><br>
                 <span style="display:inline-block; width:0.75em;"></span>
                 <time datetime="">{{ p.comments[-1].time|convert_time }}</time>
               {% else %} -->
-                <a href="#">{{ p.user }}</a><br>
+                <a href="#">{{ c.user }}</a><br>
                 <span style="display:inline-block; width:0.75em;"></span>
-                <time datetime="">{{ p.time|convert_time }}</time>
+                <time datetime="">{{ c.time|convert_time }}</time>
                {% endif %} </div>
           </article>
           {% endfor %}
@@ -96,9 +96,9 @@
           <header class="topics-head">
             <h2></h2>
             {% if logged_in %}
-              <a class="btn small" href="{{ url_for('posts.new_post_form') }}">New Post</a>
+              <a class="btn small" href="{{ url_for('crews.new_crew_form') }}">New Crew</a>
             {% else %}
-              <a class="btn small" href="{{ url_for('login.loginscreen') }}">Login to post</a>
+              <a class="btn small">Login to make crew</a>
             {% endif %}
           </header>
         </div>
