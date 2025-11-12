@@ -51,6 +51,17 @@
         <!--END NAV-->
 
     <main class="content">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flash-wrap">
+            {% for category, message in messages %}
+              <div class="flash flash-{{ category }}">
+                <strong>{{ category.title() }}:</strong> {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
       <section class="forum-index">
 
         <!--FORUMS-->
