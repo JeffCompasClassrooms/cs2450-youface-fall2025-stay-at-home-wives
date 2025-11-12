@@ -1,5 +1,5 @@
 import flask
-from db import crews as crews_db, helpers as helpers_db, users as users_db
+from db import crews as crews_db, helpers as helpers_db, users as users_db, posts as posts_db
 blueprint = flask.Blueprint("crews", __name__)
 
 
@@ -38,11 +38,15 @@ def view_crew(crew_id):
     c = crews_db.get_crew_by_id(db, crew_id)
     if not c:
         return ("Crew not found", 404)
+    
+    # includes posts to be displayed on page
+    posts = posts_db.get_posts_by_crew(db, crew_id)
 
-    return flask.render_template('crews.html', crew=c, username=username, user=user)
+    return flask.render_template('crews.html', crew=c, username=username, user=user, posts=posts)
 
 @blueprint.get('/crews/new')
 def new_crew_form():
+    """Serves form to make a new crew"""
     db = helpers_db.load_db()
     username = flask.request.cookies.get('username')
     password = flask.request.cookies.get('password')

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>{{ post.title or 'Post' }}</title>
+    <title>{{ crew.title }}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
@@ -26,50 +26,44 @@
         </nav>
         <main class="content" style="padding:18px; text-align:left; max-width:900px;">
           <article class="widget">
-            <h2 style="margin-top:0;">{{ post.title or 'Untitled' }}</h2>
+            <h2 style="margin-top:0;">{{ crew.title }}</h2>
             <div class="topic-meta" style="margin-bottom:8px;">
-              by <strong>{{ post.user }}</strong>
-              <time>{{ post.time|convert_time }}</time>
-              {{ post.views }} views
+              onwed by <strong>{{ crew.user }}</strong>
+              <time>{{ crew.time|convert_time }}</time>
             </div>
-            {% if user and user.username == post.user %}
+            {% if user and user.username == crew.user %}
             <form method="post"
-                  action="{{ url_for('posts.delete_post', post_id=post.doc_id, parent=post.parent) }}"
-                  onsubmit="return confirm('Delete this post? This cannot be undone.');"
+                  action="{{ url_for('crews.delete_crew', crew_id=crew.doc_id) }}"
+                  onsubmit="return confirm('Delete this crew? This cannot be undone.');"
                   style="margin:6px 0 14px;">
-              <button class="btn small" type="submit">Delete post</button>
+              <button class="btn small" type="submit">Delete crew</button>
             </form>
             {% endif %}
-          <div style="white-space:pre-wrap;">{{ post.text }}</div>
-          {% if post.image %}
-          <div style="margin: 20px 0; text-align: center;">
-              <img src="{{ url_for('posts.serve_uploaded_file', filename=post.image) }}"
-                  alt="Post image"
-                  style="max-width: 100%; max-height: 500px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-          </div>
-          {% endif %}
-          <section style="margin-top:16px;">
-            <form method="post" action="{{ url_for('comments.post', parent=post.doc_id) }}" style="margin-top:12px; display:flex; flex-direction:column; gap:10px;">
-              <label>Add a comment
-                <textarea name="body" rows="4" required style="width:100%; padding:8px;"></textarea>
-              </label>
-              <button class="btn" type="submit">Submit</button>
-            </form>
-          </section>
-          <section id="comments">
-            {% for c in comments %}
+          <div style="white-space:pre-wrap;">{{ crew.description }}</div>
+            {% if user %}
+              <a class="btn small" href="{{ url_for('posts.new_post_form', parent=crew.doc_id) }}">Make post</a>
+            {% else %}
+              <a class="btn small">Login to make post</a>
+            {% endif %}
+        </article>
+        <section id="posts">
+            {% for p in posts %}
             <div class="widget" style="text-align:left;">
             <div style="display:flex; align-items:center; gap:10px;">
-                <div style="font-weight:700;">{{ c.user }}</div>
+                <h2 style="margin-top:0;"><a class="topic-title" href="{{ url_for('posts.view_post', post_id=p.doc_id, parent=crew.doc_id) }}">{{ p.title or 'Untitled' }}</a></h2>
+                <div class="topic-meta" style="margin-bottom:8px;">
+                by <strong>{{ p.user }}</strong>
+                <time>{{ p.time|convert_time }}</time>
+                {{ p.views }} views
+                </div>
                 <div style="opacity:.8; font-size:.9rem;">
-                  <time>{{ c.time|convert_time }}</time>
+                <time>{{ p.time|convert_time }}</time>
                 </div>
             </div>
-            <div style="margin-top:6px; white-space:pre-wrap;">{{ c.body }}</div>
+            <div style="margin-top:6px; white-space:pre-wrap;">{{ p.text }}</div>
             </div>
             {% endfor %}
-          </section>
-        </article>
+        </section>
         </main>
       </div>
     </div>

@@ -77,18 +77,11 @@
                 <time datetime="">{{ c.time|convert_time }}</time>
               </div>
             </div>
-            <!-- <div class="c-replies">{{ p.comments|length }}</div> -->
-            <!-- <div class="c-views">{{ "{:,}".format(c.members) }}</div> -->
             <div class="c-last">
-              <!-- {% if p.comments %}
-                <a href="#">{{ p.comments[-1].author }}</a><br>
-                <span style="display:inline-block; width:0.75em;"></span>
-                <time datetime="">{{ p.comments[-1].time|convert_time }}</time>
-              {% else %} -->
                 <a href="#">{{ c.user }}</a><br>
                 <span style="display:inline-block; width:0.75em;"></span>
                 <time datetime="">{{ c.time|convert_time }}</time>
-               {% endif %} </div>
+            </div>
           </article>
           {% endfor %}
           <!-- END POSTS -->

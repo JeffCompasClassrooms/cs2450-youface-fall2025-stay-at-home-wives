@@ -7,6 +7,12 @@ def get_comments_by_user(db, user):
     Comment = tinydb.Query()
     return comments.search(Comment.user==user['username'])
 
+#gets all comments associated with a post
+def get_comments_by_post(db, post_id):
+    comments = db.table('comments')
+    Comment = tinydb.Query()
+    return comments.search(Comment.parent==post_id)
+
 # gets a singular comment via its ID
 def get_comment_by_id(db, comment_id: int):
     table = db.table('comments')
@@ -14,12 +20,6 @@ def get_comment_by_id(db, comment_id: int):
     if not doc:
         return None
     return doc
-
-#gets all comments associated with a post
-def get_comment_by_post(db, post_id):
-    comments = db.table('comments')
-    Comment = tinydb.Query()
-    return comments.search(Comment.parent_id==post_id)
 
 # adds a new comment to the db
 def add_comment(db, post_id, user, body):

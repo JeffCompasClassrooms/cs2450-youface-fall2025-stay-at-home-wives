@@ -1,5 +1,5 @@
 import flask
-from db import posts as posts_db, helpers as helpers_db, users as users_db
+from db import posts as posts_db, helpers as helpers_db, users as users_db, comments as comments_db
 #os for file paths, 
 #uuid creates uniqe names for the files
 #secure_filename removes dangerous chars from the file names
@@ -14,8 +14,8 @@ allowed_extensions={'jpg','png','jpeg','webp'}
 max_file_size=8*1024*1024
 
 
-@blueprint.route('/post/<int:crew_id>/<int:parent>', methods=['POST'])
-def post(crew_id, parent):
+@blueprint.route('/post/<int:crew_id>', methods=['POST'])
+def post(crew_id):
     """Creates a new post."""
     db = helpers_db.load_db()
 
@@ -25,13 +25,13 @@ def post(crew_id, parent):
     user = users_db.get_user(db, username, password)
     if not user:
         flask.flash('You need to be logged in to do that.', 'danger')
-        return flask.redirect(flask.url_for('crews.view_crew', crew_id=parent))
+        return flask.redirect(flask.url_for('crews.view_crew', crew_id=crew_id))
 
     title = flask.request.form.get('title', '').strip()
     text = flask.request.form.get('post', '').strip()
     if not text:
         flask.flash('Post cannot be empty.', 'danger')
-        return flask.redirect(flask.url_for('crews.view_crew', crew_id=parent))
+        return flask.redirect(flask.url_for('crews.view_crew', crew_id=crew_id))
 
     image_filename=None
     if 'image' in flask.request.files:
@@ -63,13 +63,17 @@ def view_post(post_id):
     p = posts_db.get_post_by_id(db, post_id)
     if not p:
         return ("Post not found", 404)
+    
+    # includes comments to be displayed on page
+    comments = comments_db.get_comments_by_post(db, post_id)
 
     posts_db.increment_views(db, post_id)
-    return flask.render_template('posts.html', post=p, username=username, user=user)
+    return flask.render_template('posts.html', post=p, username=username, user=user, comments=comments)
 
 
 @blueprint.get('/posts/<int:parent>/new')
 def new_post_form(parent):
+    """serves page to make new post"""
     db = helpers_db.load_db()
     username = flask.request.cookies.get('username')
     password = flask.request.cookies.get('password')
@@ -77,7 +81,7 @@ def new_post_form(parent):
     if not user:
         flask.flash('Please log in to create a post.', 'warning')
         return flask.redirect(flask.url_for('crews.view_crew', crew_id=parent))
-    return flask.render_template('new_post.html', logged_in=True, user=user, username=username)
+    return flask.render_template('new_post.html', logged_in=True, user=user, username=username, parent=parent)
 
 @blueprint.post('/posts/<int:post_id>/delete/<int:parent>')
 def delete_post(post_id, parent):

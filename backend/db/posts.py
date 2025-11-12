@@ -1,11 +1,18 @@
 import time
 import tinydb
+from db import comments as comments_db
 
 # gets all posts associated with a given user
 def get_posts_by_user(db, user):
     posts = db.table('posts')
     Post = tinydb.Query()
     return posts.search(Post.user==user['username'])
+
+#gets all comments associated with a post
+def get_posts_by_crew(db, crew_id):
+    posts = db.table('posts')
+    Post = tinydb.Query()
+    return posts.search(Post.parent==crew_id)
 
 # gets a singular post via its ID
 def get_post_by_id(db, post_id: int):
@@ -58,9 +65,13 @@ def edit_post(db, post_id, text, title=None, image_filename=None):
         "image": image_filename,}, 
         Post.post_id == post_id)
 
-# deletes a post in db
+# deletes a post in db and all its child comments
 def delete_post(db, post_id: int) -> bool:
     """Delete a post by its TinyDB doc_id."""
     table = db.table('posts')
-    ########################### deletes all comments associated with post ###########################
+    comments = db.table('comments')
+    Comment = tinydb.Query()
+    child_comments = comments.search(Comment.parent==post_id)
+    for comment in child_comments:
+        comments_db.delete_comment(db, comment.doc_id)
     return bool(table.remove(doc_ids=[post_id]))

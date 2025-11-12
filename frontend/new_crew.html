@@ -45,9 +45,9 @@
               <form method="post" action="{{ url_for('crews.post') }}" enctype="multipart/form-data">
                 <div class="form-grid">
                   <label for="title">Title</label>
-                  <input id="title" name="title" type="text" class="input" placeholder="Crew title">
+                  <input id="title" name="title" type="text" class="input" required placeholder="Crew title">
                   <label for="description">Description</label>
-                  <textarea id="description" name="post" class="textarea" rows="10" required placeholder="Optional"></textarea>
+                  <textarea id="description" name="description" class="textarea" rows="10" placeholder="Optional"></textarea>
                 <div class="actions">
                   <a class="btn ghost" href="{{ url_for('login.index') }}">Cancel</a>
                   <button class="btn" type="submit">Create</button>

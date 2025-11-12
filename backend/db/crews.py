@@ -1,5 +1,6 @@
 import time
 import tinydb
+from db import posts as posts_db
 
 # gets all crews associated with a given user
 def get_crews_by_user(db, user):
@@ -37,9 +38,13 @@ def edit_crew(db, crew_id, text, title=None):
         "time": time.time(),}, 
         Crew.crew_id == crew_id)
 
-# deletes a crew from the db
+# deletes a crew from the db and all its child posts
 def delete_crew(db, crew_id: int) -> bool:
     """Delete a crew by its TinyDB doc_id."""
     table = db.table('crews')
-    ########################### deletes all posts associated with the crew ###########################
+    posts = db.table('posts')
+    Post = tinydb.Query()
+    child_posts = posts.search(Post.parent==crew_id)
+    for post in child_posts:
+        posts_db.delete_post(db, post.doc_id)
     return bool(table.remove(doc_ids=[crew_id]))
