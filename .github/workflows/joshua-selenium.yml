@@ -40,4 +40,4 @@ jobs:
         env:
           SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
         run: |
-          python .bak/selenium/.selenium_tests/joshua-selenium-tests.py
+          python .bak/.selenium_tests/joshua-selenium-tests.py
