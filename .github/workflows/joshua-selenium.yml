@@ -40,8 +40,8 @@ jobs:
         env:
           SELENIUM_REMOTE_URL: http://localhost:4444/wd/hub
         run: |
-        for file in .selenium_tests/*.py; do
-          echo "Running $file..."
-          python "$file"
-        done
+          for file in .selenium_tests/*.py; do
+            echo "Running $file..."
+            python "$file"
+          done
           
