@@ -8,7 +8,7 @@ options = Options()
 options.add_argument("--headless")
 options.add_argument("--window-size=1920,1080")
 
-driver = webdriver.Chrome(executable_path="/Users/hannahmartin/bin/chromedriver", options=options)
+driver = webdriver.Chrome(options=options)
 
 tests_run = 0
 tests_passed = 0
