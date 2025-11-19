@@ -3,28 +3,86 @@
   <head>
     <title>{{ post.title or 'Post' }}</title>
     <meta charset="utf-8">
+    <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro">
     <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="icon" href="{{ url_for('static', filename='css/assets/favicon_test2.png') }}" type="image/x-icon">
-    <link rel="icon" href="{{ url_for('static', filename='css/assets/favicon_test2.png') }}" type="image/x-icon">
-    <link rel="shortcut icon" href="{{ url_for('static', filename='css/assets/favicon.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ url_for('static', filename='css/assets/favicon.png') }}" type="image/x-icon">
   </head>
   <body>
+    <!--Image Modal-->
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-btn" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-content" id="lightbox-img">
+    </div>
+    <!--Comment Modal-->
+    <div id="commentModal" class="comment-modal">
+        <div class="comment-modal-content">
+            <span class="comment-close-btn" onclick="closeCommentModal()">&times;</span>
+            <h3>Add a Comment</h3>
+            <form method="post" action="{{ url_for('posts.add_comment', post_id=post.doc_id) }}" class="comment-modal-form">
+                <textarea name="body" rows="6" required placeholder="Write your comment here..."></textarea>
+                <div class="btn-container">
+                    <button type="button" class="btn ghost" onclick="closeCommentModal()">Cancel</button>
+                    <button class="btn" type="submit">Post Comment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <div id="overlay">
       <div id="wrapper">
         <div id="hero"><img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
         <div id="top"></div>
+        <!--NAV-->
         <nav>
-          <ul>
-            <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
-          </ul>
-          <div class="divider"></div>
-          <footer>Copyright &copy; 2025 stay@homewives</footer>
+            <div id="hero2">
+              <img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200">
+            </div>
+        <!-- LOGIN -->
+        <div id="login">
+          {% if logged_in %}
+            <form method="post" action="{{ url_for('login.logout') }}" style="display:inline;">
+              <button class="btn small" type="submit">Logout</button>
+            </form>
+          {% else %}
+            <a class="btn small" href="{{ url_for('login.loginscreen') }}">Login</a>
+          {% endif %}
+        </div>
+        <div class="divider1"></div>
+        <!-- END LOGIN -->
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">Seven-Seas</a></li>
+        </ul>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.template_page') }}" class="icon navigate">Template Crews</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">List Crews:</a></li>
+        </ul>
+        <div class="divider1"></div>
+        <ul>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Posts</a></li>
+          <li><a href="{{ url_for('login.index') }}" class="icon navigate">My Comments</a></li>
+        </ul>
+        <div class="divider2"></div>
+        <footer>Copyright &copy; 2025 stay@homewives</footer>
         </nav>
+        <!--END NAV-->
         <main class="content" style="padding:18px; text-align:left; max-width:900px;">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+              <div class="flash-wrap">
+                {% for category, message in messages %}
+                  <div class="flash flash-{{ category }}">
+                    <strong>{{ category.title() }}:</strong> {{ message }}
+                  </div>
+                {% endfor %}
+              </div>
+            {% endif %}
+          {% endwith %}
           <article class="widget">
             <h2 style="margin-top:0;">{{ post.title or 'Untitled' }}</h2>
             <div class="topic-meta" style="margin-bottom:8px;">
@@ -39,13 +97,15 @@
                   style="margin:6px 0 14px;">
               <button class="btn small" type="submit">Delete post</button>
             </form>
-            {% endif %}
-          <div style="white-space:pre-wrap;">{{ post.text }}</div>
+          {% endif %}
+          <div style="white-space:pre-wrap; word-wrap: break-word; overflow-wrap: break-word; max-width: 100%;">{{ post.text }}</div>
           {% if post.image %}
           <div style="margin: 20px 0; text-align: center;">
-              <img src="{{ url_for('posts.serve_uploaded_file', filename=post.image) }}"
-                  alt="Post image"
-                  style="max-width: 100%; max-height: 500px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+            <img src="{{ url_for('posts.serve_uploaded_file', filename=post.image) }}" 
+                alt="Post image" 
+                class="image-thumbnail"
+                onclick="openLightbox(this.src)"
+                style="cursor: pointer;">
           </div>
           {% endif %}
           <section style="margin-top:16px;">
@@ -73,5 +133,47 @@
         </main>
       </div>
     </div>
+    <script>
+      function openLightbox(imageSrc) {
+          const lightbox = document.getElementById('lightbox');
+          const lightboxImg = document.getElementById('lightbox-img');
+          lightboxImg.src = imageSrc;
+          lightbox.style.display = 'block';
+          document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+          document.getElementById('lightbox').style.display = 'none';
+          document.body.style.overflow = 'auto'
+      }
+
+      document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape') {
+              closeLightbox();
+          }
+      });
+      function openCommentModal() {
+          document.getElementById('commentModal').style.display = 'block';
+          document.body.style.overflow = 'hidden';
+      }
+
+      function closeCommentModal() {
+          document.getElementById('commentModal').style.display = 'none';
+          document.body.style.overflow = 'auto';
+      }
+
+      window.onclick = function(event) {
+          const modal = document.getElementById('commentModal');
+          if (event.target == modal) {
+              closeCommentModal();
+          }
+      }
+
+      document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape') {
+              closeCommentModal();
+          }
+      });
+      </script>
   </body>
 </html>
