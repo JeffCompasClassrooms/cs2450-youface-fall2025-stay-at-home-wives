@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>{{ crew.title }}</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Anonymous+Pro">
+    <link href="https://fonts.googleapis.com/css2?family=Bona+Nova+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='css/assets/favicon_test2.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ url_for('static', filename='css/assets/favicon_test2.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/assets/favicon.png') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='css/assets/favicon.png') }}" type="image/x-icon">
+  </head>
+  <body>
+    <div id="overlay">
+      <div id="wrapper">
+        <div id="hero"><img src="{{ url_for('static', filename='css/assets/hero2.png') }}" id="slogan" alt="Plundr Logo" height="36" width="200"></div>
+        <div id="top"></div>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('login.index') }}" class="icon navigate">Home</a></li>
+          </ul>
+          <div class="divider"></div>
+          <footer>Copyright &copy; 2025 stay@homewives</footer>
+        </nav>
+        <main class="content" style="padding:18px; text-align:left; max-width:900px;">
+          <article class="widget">
+            <h2 style="margin-top:0;">{{ crew.title }}</h2>
+            <div class="topic-meta" style="margin-bottom:8px;">
+              onwed by <strong>{{ crew.user }}</strong>
+              <time>{{ crew.time|convert_time }}</time>
+            </div>
+            {% if user and user.username == crew.user %}
+            <form method="post"
+                  action="{{ url_for('crews.delete_crew', crew_id=crew.doc_id) }}"
+                  onsubmit="return confirm('Delete this crew? This cannot be undone.');"
+                  style="margin:6px 0 14px;">
+              <button class="btn small" type="submit">Delete crew</button>
+            </form>
+            {% endif %}
+          <div style="white-space:pre-wrap;">{{ crew.description }}</div>
+            {% if user %}
+              <a class="btn small" href="{{ url_for('posts.new_post_form', parent=crew.doc_id) }}">Make post</a>
+            {% else %}
+              <a class="btn small">Login to make post</a>
+            {% endif %}
+        </article>
+        <section id="posts">
+            {% for p in posts %}
+            <div class="widget" style="text-align:left;">
+            <div style="display:flex; align-items:center; gap:10px;">
+                <h2 style="margin-top:0;"><a class="topic-title" href="{{ url_for('posts.view_post', post_id=p.doc_id, parent=crew.doc_id) }}">{{ p.title or 'Untitled' }}</a></h2>
+                <div class="topic-meta" style="margin-bottom:8px;">
+                by <strong>{{ p.user }}</strong>
+                <time>{{ p.time|convert_time }}</time>
+                {{ p.views }} views
+                </div>
+                <div style="opacity:.8; font-size:.9rem;">
+                <time>{{ p.time|convert_time }}</time>
+                </div>
+            </div>
+            <div style="margin-top:6px; white-space:pre-wrap;">{{ p.text }}</div>
+            </div>
+            {% endfor %}
+        </section>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

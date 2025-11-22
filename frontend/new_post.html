@@ -63,25 +63,8 @@
                   </div>
                 {% endif %}
               {% endwith %}
-        <!-- OLD POSTS
-              <form method="post" action="{{ url_for('posts.post') }}">
-                <div class="form-grid">
-                  <label for="title">Title</label>
-                  <input id="title" name="title" type="text" class="input" placeholder="Optional">
 
-                  <label for="body">Post</label>
-                  <textarea id="body" name="post" class="textarea" rows="10" required placeholder="What’s on your mind?"></textarea>
-                </div>
-                <div class="actions">
-                  <form action="/upload" method="post" enctype="multipart/form-data">
-                    <label for="imageUpload">img</label>
-                    <input type="file" id="imageUpload" name="image" accept="image/jpeg, image/png, image/webp"/>
-                  </form>
-                  <a class="btn ghost" href="{{ url_for('login.index') }}">Cancel</a>
-                  <button class="btn" type="submit">Publish</button>
-                </div>
-              </form> -->
-              <form method="post" action="{{ url_for('posts.post') }}" enctype="multipart/form-data">
+              <form method="post" action="{{ url_for('posts.post', crew_id=parent) }}" enctype="multipart/form-data">
                 <div class="form-grid">
                   <label for="title">Title</label>
                   <input id="title" name="title" type="text" class="input" placeholder="Optional">
@@ -98,7 +81,7 @@
                     </div>
                 </div>
                 <div class="actions">
-                  <a class="btn ghost" href="{{ url_for('login.index') }}">Cancel</a>
+                  <a class="btn ghost" href="{{ url_for('crews.view_crew', crew_id=parent) }}">Cancel</a>
                   <button class="btn" type="submit">Publish</button>
                 </div>
               </form>
@@ -107,16 +90,13 @@
         </main>
       </div>
     </div>
-    <script>
-    document.getElementById('imageUpload').addEventListener('change', function(e) {
+    <script>document.getElementById('imageUpload').addEventListener('change', function(e) {
       const fileNameDisplay = document.getElementById('fileNameDisplay');
       if (this.files.length > 0) {
         fileNameDisplay.textContent = 'Selected: ' + this.files[0].name;
       } else {
         fileNameDisplay.textContent = '';
       }
-    });
-    </script>
+    });</script>
   </body>
 </html>
-

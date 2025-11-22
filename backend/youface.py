@@ -3,9 +3,10 @@ import time
 import flask
 import timeago
 import tinydb
+
+from handlers import friends, login, crews, posts, comments
 from db import helpers as helpers_db, users as users_db
 from flask import request
-from handlers import friends, login, posts
 
 app = flask.Flask(
     __name__,
@@ -33,7 +34,9 @@ def inject_auth():
 # blueprints
 app.register_blueprint(friends.blueprint)
 app.register_blueprint(login.blueprint)
+app.register_blueprint(crews.blueprint)
 app.register_blueprint(posts.blueprint)
+app.register_blueprint(comments.blueprint)
 
 app.secret_key = 'mygroup'
 app.config['SESSION_TYPE'] = 'filesystem'
