@@ -120,5 +120,27 @@
     </div>
     </div>
 
+    <link rel="stylesheet" href="css/parrot.css">
+
+    <script>
+    window.PARROT_ASSETS = {
+      idle: "{{ url_for('static', filename='css/assets/parrot_bully.png') }}",
+      pointing: "{{ url_for('static', filename='css/assets/parrot_bully_pointing.png') }}",
+      jumpscare: "{{ url_for('static', filename='css/assets/parrot_bully_straight_on.png') }}",
+      deck: [
+        "{{ url_for('static', filename='css/assets/deckpic0.jpg') }}",
+        "{{ url_for('static', filename='css/assets/deckpic1.jpg') }}",
+        "{{ url_for('static', filename='css/assets/deckpic2.jpg') }}",
+        "{{ url_for('static', filename='css/assets/deckpic3.jpg') }}",
+        "{{ url_for('static', filename='css/assets/deckpic4.jpg') }}",
+        "{{ url_for('static', filename='css/assets/deckpic5.jpg') }}"
+      ],
+      reaction: "{{ url_for('static', filename='css/assets/parrot_bully_smiling.png') }}",
+      page: "{{ request.path }}"
+    };
+    </script>
+
+    <script src="{{ url_for('static', filename='js/bullyParrot.js') }}"></script>
+
   </body>
 </html>
